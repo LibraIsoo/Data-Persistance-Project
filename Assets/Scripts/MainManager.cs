@@ -6,12 +6,18 @@ using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
+    public static MainManager Instance;
+    public string UserName;
+    public int BestScore;
+    public GameObject menuButtonHandler;
+
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
 
     public Text ScoreText;
     public GameObject GameOverText;
+    public Text BestScoreText;
     
     private bool m_Started = false;
     private int m_Points;
@@ -22,6 +28,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ShowBestScore();
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -37,6 +44,8 @@ public class MainManager : MonoBehaviour
             }
         }
     }
+
+
 
     private void Update()
     {
@@ -68,9 +77,26 @@ public class MainManager : MonoBehaviour
         ScoreText.text = $"Score : {m_Points}";
     }
 
+    void ShowBestScore()
+    {
+        BestScoreText.text = "Best score: " + DataManager.Instance.bestScoreUserName + ":" + DataManager.Instance.bestScore;
+    }
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        menuButtonHandler.SetActive(true);
+        if (m_Points > DataManager.Instance.bestScore)
+        {
+            DataManager.Instance.bestScore = m_Points;
+            DataManager.Instance.bestScoreUserName = DataManager.Instance.userName;
+            DataManager.Instance.SaveBestScore();
+            ShowBestScore();
+        }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
