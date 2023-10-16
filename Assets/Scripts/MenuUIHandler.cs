@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,16 +11,11 @@ using UnityEditor;
 public class MenuUIHandler : MonoBehaviour
 {
     private string userName;
-    // Start is called before the first frame update
-    void Start()
-    {
+    public TextMeshProUGUI bestScoreText;
 
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        bestScoreText.text = "Best Score: " + DataManager.Instance.bestScoreUserName + "   -   " + DataManager.Instance.bestScore;
     }
 
     public void GetUserName(string s)
@@ -33,6 +29,14 @@ public class MenuUIHandler : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void OpenLeaderBoard()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void BackToMenu()
+    { SceneManager.LoadScene(0);}
 
     public void Exit()
     {

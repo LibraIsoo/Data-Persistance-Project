@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using TMPro;
 
 public class DataManager : MonoBehaviour
 {
@@ -21,17 +22,6 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         LoadBestScore();
-    }
-        // Start is called before the first frame update
-        void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     [System.Serializable]
